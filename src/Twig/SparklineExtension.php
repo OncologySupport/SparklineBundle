@@ -1,10 +1,8 @@
 <?php
+
 namespace OncologySupport\Sparkline\Twig;
 
 use Davaxi\Sparkline;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -17,7 +15,7 @@ class SparklineExtension extends AbstractExtension
         ];
     }
 
-    public function sparkline(array $data, int $width = null, int $height = null): string
+    public function sparkline(array $data, ?int $width = null, ?int $height = null): string
     {
         ob_start();
         $sparkline = new Sparkline();
@@ -46,7 +44,7 @@ class SparklineExtension extends AbstractExtension
         $dataMax = max($data);
         $dataMin = min($data);
         if (0.20 * $dataMax > 20) {
-            $offset = (max(0, $dataMin - 0.10 * $dataMax));
+            $offset = max(0, $dataMin - 0.10 * $dataMax);
             for ($i = 0; $i < count($data); ++$i) {
                 $data[$i] -= $offset;
             }
@@ -56,6 +54,7 @@ class SparklineExtension extends AbstractExtension
 
         $sparkline->display();
         $sparkline->destroy();
+
         return '<img src="data:image/png;base64,'.base64_encode(ob_get_clean()).'" alt="sparkline"/>';
     }
 }
