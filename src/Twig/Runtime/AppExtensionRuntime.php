@@ -1,20 +1,12 @@
 <?php
 
-namespace OncologySupport\Sparkline\Twig;
+namespace OncologySupport\Sparkline\Twig\Runtime;
 
 use Davaxi\Sparkline;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use Twig\Extension\RuntimeExtensionInterface;
 
-class SparklineExtension extends AbstractExtension
+class AppExtensionRuntime implements RuntimeExtensionInterface
 {
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('sparkline', [$this, 'sparkline']),
-        ];
-    }
-
     public function sparkline(array $data, ?int $width = null, ?int $height = null): string
     {
         ob_start();
