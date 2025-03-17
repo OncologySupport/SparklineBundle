@@ -7,8 +7,13 @@ use Twig\Extension\RuntimeExtensionInterface;
 
 class AppExtensionRuntime implements RuntimeExtensionInterface
 {
-    public function sparkline(array $data, ?int $width = null, ?int $height = null): string
+    public function sparkline(array|string $data, ?int $width = null, ?int $height = null): string
     {
+        // $data can be a string of comma-separated values or an array
+        if (is_string($data)) {
+            $data = explode(',', $data);
+        }
+
         ob_start();
         $sparkline = new Sparkline();
         $width ??= 80;  // sparkline default is 80
