@@ -21,7 +21,7 @@
         "symfony/dependency-injection": "^6.0 || ^7.0",
         "symfony/config": "^6.0 || ^7.0",
         "symfony/yaml": "^6.0 || ^7.0",
-        "twig/twig": "3.19",
+        "twig/twig": "^3.19",
         "symfony/flex": "^2.3"
     },
     "require-dev": {
